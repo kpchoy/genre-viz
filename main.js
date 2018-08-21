@@ -46,6 +46,21 @@ var links = [
 
 ];
 
+function getNeighbors(node) {
+  return links.reduce(function (neighbors, link) {
+      if (link.target.id === node.id) {
+        neighbors.push(link.source.id)
+      } else if (link.source.id === node.id) {
+        neighbors.push(link.target.id)
+      }
+      return neighbors;
+    },
+    [node.id]
+  );
+}
+
+
+
 var width = window.innerWidth;
 var height = window.innerHeight;
 
@@ -63,6 +78,21 @@ var simulation = d3
   .force('charge', d3.forceManyBody().strength(-200))
   .force('center', d3.forceCenter(width / 2, height / 2))
   .force('link', linkForce)
+
+var dragDrop = d3.drag().on('start', function (node) {
+    node.fx = node.x
+    node.fy = node.y
+  }).on('drag', function (node) {
+    simulation.alphaTarget(0.7).restart()
+    node.fx = d3.event.x
+    node.fy = d3.event.y
+  }).on('end', function (node) {
+    if (!d3.event.active) {
+      simulation.alphaTarget(0)
+    }
+    node.fx = null
+    node.fy = null
+  })
 
 
 function getNodeColor(node) {
@@ -92,16 +122,8 @@ function getNodeColor(node) {
 }
 
 function circleSize(node) {
-  if (node.label === "Pop") {
-    return 30;
-  } else if (node.label == "Country") {
-    return 30;
-  } else if (node.label == "Hip-hop") {
-    return 30;
-  } else if (node.label == "Rock") {
-    return 30;
-  } else if (node.label == "Electronic") {
-    return 30;
+  if (node.level === 1) {
+    return 50;
   } else {
     return 10;
   }
@@ -120,6 +142,7 @@ var nodeElements = svg.append("g")
   .data(nodes)
   .enter().append("circle")
     .attr("r", circleSize)
+    .call(dragDrop)
     .attr("fill", getNodeColor);
 
 var textElements = svg.append("g")
