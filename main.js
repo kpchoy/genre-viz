@@ -1,3 +1,29 @@
+var songs = []; 
+var popsongs = [];
+$(document).ready(function() {
+    $.getJSON("http://ws.audioscrobbler.com/2.0/?method=chart.gettoptracks&api_key=f21088bf9097b49ad4e7f487abab981e&limit=100&format=json", function(json) {
+        $.each(json.tracks.track, function(i, item) { 
+            $.getJSON(`http://ws.audioscrobbler.com/2.0/?method=track.getInfo&api_key=f21088bf9097b49ad4e7f487abab981e&artist=${item.artist.name}&track=${item.name}&format=json`, function(json) {
+                $.each(json, function(i, item) {
+                  if (item.toptags.tag === undefined || item.toptags.tag.length == 0) {
+                    return songs  
+                  } else if (item.toptags.tag[0].name === "pop") {
+                    popsongs.push({ id: ""  , group: 0, label: `${item.name}`   , level: 2 })
+                  } else {
+                    songs.push([item.name, item.toptags.tag[0].name])
+                    
+                  }
+                  
+                });
+                
+            });
+        });
+    });    
+});
+        
+        console.log(popsongs)
+
+
 var nodes = [
   { id: "p", group: 0, label: "Pop", level: 1 },
   { id: "p1"   , group: 0, label: "I Like It"   , level: 2 },
