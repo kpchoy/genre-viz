@@ -1,27 +1,59 @@
-var songs = []; 
-var popsongs = [];
+var songs = [];
+
+var popSongs = [];
+var popCount = 0;
+
+var hhSongs = [];
+var hhCount = 0;
+
+var aSongs = [];
+var aCount = 0;
+
+var rSongs = [];
+var rCount = 0;
+
+
+
 $(document).ready(function() {
     $.getJSON("http://ws.audioscrobbler.com/2.0/?method=chart.gettoptracks&api_key=f21088bf9097b49ad4e7f487abab981e&limit=100&format=json", function(json) {
         $.each(json.tracks.track, function(i, item) { 
             $.getJSON(`http://ws.audioscrobbler.com/2.0/?method=track.getInfo&api_key=f21088bf9097b49ad4e7f487abab981e&artist=${item.artist.name}&track=${item.name}&format=json`, function(json) {
                 $.each(json, function(i, item) {
                   if (item.toptags.tag === undefined || item.toptags.tag.length == 0) {
-                    return songs  
-                  } else if (item.toptags.tag[0].name === "pop") {
-                    popsongs.push({ id: ""  , group: 0, label: `${item.name}`   , level: 2 })
-                  } else {
-                    songs.push([item.name, item.toptags.tag[0].name])
-                    
-                  }
+                    return songs ; 
+
+                  } else if (item.toptags.tag[0].name.toLowerCase() === "pop") {
+                    popSongs.push({ id: `p${popCount}`  , group: 0, label: `${item.name}`, level: 2 });
+                    popCount += 1; 
+
+                  } else if (item.toptags.tag[0].name.toLowerCase().includes("hip") || item.toptags.tag[0].name.toLowerCase().includes("rap")) {
+                    hhSongs.push({ id: `hh${hhCount}`  , group: 1, label: `${item.name}`, level: 2 });
+                    hhCount += 1;
                   
+                  } else if (item.toptags.tag[0].name.toLowerCase().includes("alt")) {
+                    aSongs.push({ id: `a${aCount}`  , group: 2, label: `${item.name}`, level: 2 });
+                    aCount += 1;
+                  
+                  } else if (item.toptags.tag[0].name.toLowerCase().includes("rock")) {
+                    rSongs.push({ id: `r${rCount}`  , group: 3, label: `${item.name}`, level: 2 });
+                    rCount += 1;
+
+                  } else {
+                    popSongs.push({ id: `p${popCount}`  , group: 0, label: `${item.name}`, level: 2 });
+                    popCount += 1; 
+                  }
+
                 });
-                
+              
             });
         });
     });    
 });
-        
-        console.log(popsongs)
+
+console.log(popSongs);
+console.log(hhSongs);
+console.log(aSongs);
+console.log(rSongs);
 
 
 var nodes = [
@@ -46,6 +78,7 @@ var nodes = [
   { id: "e1"  , group: 4, label: "The Middle"   , level: 2 },
   { id: "e2"  , group: 4, label: "One Kiss"  , level: 2 }
 ];
+
 
 var links = [
   { target: "p", source: "c", strength: 0.1 },
