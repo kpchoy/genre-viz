@@ -1,42 +1,10 @@
-var songs = [];
-
-var popSongs = [];
-var popCount = 0;
-
-var hhSongs = [];
-var hhCount = 0;
-
-var aSongs = [];
-var aCount = 0;
-
-var rSongs = [];
-var rCount = 0;
-
-let pArr = [];
-
-var links = [
-  { target: "p", source: "hh", strength: 0.05 },
-  { target: "hh", source: "r", strength: 0.05 },
-  { target: "r", source: "a", strength: 0.05 },
-  { target: "a", source: "p", strength: 0.05 }
-];
-
-var initNodes = [
-  { id: "p", group: 0, label: "Pop", level: 1 },
-  { id: "hh", group: 1, label: "Hip-Hop", level: 1 },
-  { id: "a", group: 2, label: "Alternative", level: 1 },
-  { id: "r", group: 3, label: "Rock", level: 1 },
-
-];
-
-
 $(document).ready(function() {
   
   $.getJSON("http://ws.audioscrobbler.com/2.0/?method=chart.gettoptracks&api_key=f21088bf9097b49ad4e7f487abab981e&limit=100&format=json", function(json) {
      
     $.each(json.tracks.track, function(i, item) { 
       
-      let thisPromise = $.getJSON(`http://ws.audioscrobbler.com/2.0/?method=track.getInfo&api_key=f21088bf9097b49ad4e7f487abab981e&artist=${item.artist.name}&track=${item.name}&format=json`, function(json) {
+      let trackRequest = $.getJSON(`http://ws.audioscrobbler.com/2.0/?method=track.getInfo&api_key=f21088bf9097b49ad4e7f487abab981e&artist=${item.artist.name}&track=${item.name}&format=json`, function(json) {
         $.each(json, function(i, item) {
           if (typeof item.toptags === "undefined" || item.toptags.tag.length == 0) {
             return songs ; 
@@ -64,20 +32,17 @@ $(document).ready(function() {
         });
         
       });
-      pArr.push(thisPromise);
+      trackRequestArr.push(trackRequest);
     });
     
-    Promise.all(pArr).then(() => {
+    Promise.all(trackRequestArr).then(() => {
       // all are resolved
       
-      nodes = initNodes.concat(popSongs,hhSongs, aSongs, rSongs);
+      var nodes = initNodes.concat(popSongs,hhSongs, aSongs, rSongs);
       
       linkGenerator(nodes);
 
-      var width = window.innerWidth;
-      var height = window.innerHeight;
-
-      var svg = d3.select('svg');
+    
 
       svg.attr('width', width).attr('height', height);
 
@@ -134,8 +99,8 @@ $(document).ready(function() {
         .data(nodes)
         .enter().append("text")
         .text(function (node) { return  node.label })
-        .attr("font-size", 15)
-        .attr("dx", 15)
+        .attr("font-size", fontSize)
+        .attr("dx", textDx)
         .attr("dy", 0)
         .call(dragDrop);
 
@@ -159,6 +124,37 @@ $(document).ready(function() {
   });
 });
 
+
+var songs = [];
+
+var popSongs = [];
+var popCount = 0;
+
+var hhSongs = [];
+var hhCount = 0;
+
+var aSongs = [];
+var aCount = 0;
+
+var rSongs = [];
+var rCount = 0;
+
+let trackRequestArr = [];
+
+var links = [
+  { target: "p", source: "hh", strength: 0.05 },
+  { target: "hh", source: "r", strength: 0.05 },
+  { target: "r", source: "a", strength: 0.05 },
+  { target: "a", source: "p", strength: 0.05 }
+];
+
+var initNodes = [
+  { id: "p", group: 0, label: "Pop", level: 1 },
+  { id: "hh", group: 1, label: "Hip-Hop", level: 1 },
+  { id: "a", group: 2, label: "Alternative", level: 1 },
+  { id: "r", group: 3, label: "Rock", level: 1 },
+
+];
 
 
 function getNodeColor(node) {
@@ -189,7 +185,7 @@ function getNodeColor(node) {
 
 function circleSize(node) {
   if (node.level === 1) {
-    return 50;
+    return 100;
   } else {
     return 10;
   }
@@ -209,9 +205,28 @@ function linkGenerator(nodez) {
   });
 }
 
+function fontSize(node) {
+  if (node.level === 1) {
+    return 35;
+  } else {
+    return 15;
+  }
+}
 
 
+function textDx(node) {
+  if (node.level === 1) {
+    return -60;
+  } else {
+    return 15;
+  }
+}
 
+
+var width = window.innerWidth;
+var height = window.innerHeight;
+
+var svg = d3.select('svg');
 
 
 
