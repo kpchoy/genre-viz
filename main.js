@@ -56,9 +56,7 @@ $(document).ready(function() {
         .forceSimulation()
         .force('charge', d3.forceManyBody().strength(-100))
         .force('center', d3.forceCenter(width / 2, height / 2))
-        .force('collision', d3.forceCollide().radius(function(d) {
-          return d.radius
-        }))
+        .force('collision', d3.forceCollide(20))
         .force('link', linkForce);
       
       var dragDrop = d3.drag().on('start', function (node) {
