@@ -15,10 +15,10 @@ var rCount = 0;
 let pArr = [];
 
 var links = [
-  { target: "p", source: "hh", strength: 0.1 },
-  { target: "hh", source: "r", strength: 0.1 },
-  { target: "r", source: "a", strength: 0.1 },
-  { target: "a", source: "p", strength: 0.1 }
+  { target: "p", source: "hh", strength: 0.05 },
+  { target: "hh", source: "r", strength: 0.05 },
+  { target: "r", source: "a", strength: 0.05 },
+  { target: "a", source: "p", strength: 0.05 }
 ];
 
 var initNodes = [
@@ -89,8 +89,11 @@ $(document).ready(function() {
       // simulation setup with all forces
       var simulation = d3
         .forceSimulation()
-        .force('charge', d3.forceManyBody().strength(-20))
+        .force('charge', d3.forceManyBody().strength(-100))
         .force('center', d3.forceCenter(width / 2, height / 2))
+        .force('collision', d3.forceCollide().radius(function(d) {
+          return d.radius
+        }))
         .force('link', linkForce);
       
       var dragDrop = d3.drag().on('start', function (node) {
@@ -130,10 +133,11 @@ $(document).ready(function() {
         .selectAll("text")
         .data(nodes)
         .enter().append("text")
-          .text(function (node) { return  node.label })
-          .attr("font-size", 15)
-          .attr("dx", 15)
-          .attr("dy", 6);
+        .text(function (node) { return  node.label })
+        .attr("font-size", 15)
+        .attr("dx", 15)
+        .attr("dy", 0)
+        .call(dragDrop);
 
       simulation.nodes(nodes).on('tick', () => {
           nodeElements
