@@ -1,3 +1,4 @@
+
 $(document).ready(function() {
   
   $.getJSON("http://ws.audioscrobbler.com/2.0/?method=chart.gettoptracks&api_key=f21088bf9097b49ad4e7f487abab981e&limit=100&format=json", function(json) {
@@ -38,85 +39,7 @@ $(document).ready(function() {
     Promise.all(trackRequestArr).then(() => {
       // all are resolved
       
-      var nodes = initNodes.concat(popSongs,hhSongs, aSongs, rSongs);
-      
-      linkGenerator(nodes);
-
-    
-
-      svg.attr('width', width).attr('height', height);
-
-      var linkForce = d3
-        .forceLink()
-        .id(function (link) { return link.id })
-        .strength(function (link) { return link.strength });
-      
-      // simulation setup with all forces
-      var simulation = d3
-        .forceSimulation()
-        .force('charge', d3.forceManyBody().strength(-100))
-        .force('center', d3.forceCenter(width / 2, height / 2))
-        .force('collision', d3.forceCollide(20))
-        .force('link', linkForce);
-      
-      var dragDrop = d3.drag().on('start', function (node) {
-          node.fx = node.x
-          node.fy = node.y
-        }).on('drag', function (node) {
-          simulation.alphaTarget(0.7).restart()
-          node.fx = d3.event.x
-          node.fy = d3.event.y
-        }).on('end', function (node) {
-          if (!d3.event.active) {
-            simulation.alphaTarget(0)
-          }
-          node.fx = null
-          node.fy = null
-        });
-      
-      var linkElements = svg.append('g')
-          .selectAll('line')
-          .data(links)
-          .enter().append('line')
-          .attr('stroke-width', 1)
-          .attr('stroke', '#E5E5E5');
-
-      
-      var nodeElements = svg.append("g")
-        .attr("class", "nodes") 
-        .selectAll("circle")
-        .data(nodes)
-        .enter().append("circle")
-        .attr("r", circleSize)
-        .call(dragDrop)
-        .attr("fill", getNodeColor);
-
-      var textElements = svg.append("g")
-        .attr("class", "texts")
-        .selectAll("text")
-        .data(nodes)
-        .enter().append("text")
-        .text(function (node) { return  node.label })
-        .attr("font-size", fontSize)
-        .attr("dx", textDx)
-        .attr("dy", 0)
-        .call(dragDrop);
-
-      simulation.nodes(nodes).on('tick', () => {
-          nodeElements
-            .attr('cx', function (node) { return node.x })
-            .attr('cy', function (node) { return node.y })
-          textElements
-            .attr('x', function (node) { return node.x })
-            .attr('y', function (node) { return node.y })
-          linkElements
-            .attr('x1', link => link.source.x)
-            .attr('y1', link => link.source.y)
-            .attr('x2', link => link.target.x)
-            .attr('y2', link => link.target.y)
-        });
-
-      simulation.force("link").links(links);
+      simulate();
 
      });
   });
@@ -153,7 +76,6 @@ var initNodes = [
   { id: "r", group: 3, label: "Rock", level: 1 },
 
 ];
-
 
 function getNodeColor(node) {
   if (node.level === 1 && node.label === "Pop") {
@@ -220,15 +142,90 @@ function textDx(node) {
   }
 }
 
+function simulate() {
+  var width = window.innerWidth;
+  var height = window.innerHeight;
 
-var width = window.innerWidth;
-var height = window.innerHeight;
+  var svg = d3.select('svg');
+  
+  var nodes = initNodes.concat(popSongs,hhSongs, aSongs, rSongs);
+      
+  linkGenerator(nodes);
 
-var svg = d3.select('svg');
 
 
+  svg.attr('width', width).attr('height', height);
 
+  var linkForce = d3
+    .forceLink()
+    .id(function (link) { return link.id })
+    .strength(function (link) { return link.strength });
+  
+  // simulation setup with all forces
+  var simulation = d3
+    .forceSimulation()
+    .force('charge', d3.forceManyBody().strength(-100))
+    .force('center', d3.forceCenter(width / 2, height / 2))
+    .force('collision', d3.forceCollide(20))
+    .force('link', linkForce);
+  
+  var dragDrop = d3.drag().on('start', function (node) {
+      node.fx = node.x
+      node.fy = node.y
+    }).on('drag', function (node) {
+      simulation.alphaTarget(0.7).restart()
+      node.fx = d3.event.x
+      node.fy = d3.event.y
+    }).on('end', function (node) {
+      if (!d3.event.active) {
+        simulation.alphaTarget(0)
+      }
+      node.fx = null
+      node.fy = null
+    });
+  
+  var linkElements = svg.append('g')
+      .selectAll('line')
+      .data(links)
+      .enter().append('line')
 
+  
+  var nodeElements = svg.append("g")
+    .attr("class", "nodes") 
+    .selectAll("circle")
+    .data(nodes)
+    .enter().append("circle")
+    .attr("r", circleSize)
+    .call(dragDrop)
+    .attr("fill", getNodeColor);
+
+  var textElements = svg.append("g")
+    .attr("class", "texts")
+    .selectAll("text")
+    .data(nodes)
+    .enter().append("text")
+    .text(function (node) { return  node.label })
+    .attr("font-size", fontSize)
+    .attr("dx", textDx)
+    .attr("dy", 0)
+    .call(dragDrop);
+
+  simulation.nodes(nodes).on('tick', () => {
+      nodeElements
+        .attr('cx', function (node) { return node.x })
+        .attr('cy', function (node) { return node.y })
+      textElements
+        .attr('x', function (node) { return node.x })
+        .attr('y', function (node) { return node.y })
+      linkElements
+        .attr('x1', link => link.source.x)
+        .attr('y1', link => link.source.y)
+        .attr('x2', link => link.target.x)
+        .attr('y2', link => link.target.y)
+    });
+
+  simulation.force("link").links(links);
+}
 
 
 

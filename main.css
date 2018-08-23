@@ -1,3 +1,36 @@
-.mainsvg {
-  background: blue;
+line {
+  stroke-width: 2;
+  stroke: #E5E5E5;
 }
+
+body {
+  margin: 0;
+  padding: 0;
+  position: relative;
+}
+
+.navbar {
+  font-family: "Helvetica Neue", Helvetica;
+  position: absolute;
+
+  top: 0;
+  width: 100%;
+}
+
+.left-nav{
+  width: 30%;
+  padding-left: 10%;
+}
+ .title {
+  color: black;
+  font-size: 40px;
+  font-weight: 200;
+  margin-bottom: 0;
+ }
+
+ .description {
+   font-size: 20px;
+   font-weight: 200;
+   margin-top: 0;
+ }
+
