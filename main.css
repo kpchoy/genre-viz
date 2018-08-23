@@ -7,6 +7,13 @@ body {
   margin: 0;
   padding: 0;
   position: relative;
+  background: url(texture-noise.png);
+
+}
+
+text {
+  font-family: "Helvetica Neue", Helvetica;
+  font-weight: 200;
 }
 
 .navbar {
@@ -26,11 +33,22 @@ body {
   font-size: 40px;
   font-weight: 200;
   margin-bottom: 0;
+  text-shadow: 1px 1px 1px rgba(0,0,0,0.3);
  }
 
  .description {
-   font-size: 20px;
+   font-size: 15px;
    font-weight: 200;
    margin-top: 0;
- }
+   margin-bottom: 10px;
+   border-bottom: solid 1px #ebebeb; 
+   width: 200px;
+   color: #999;
 
+ }
+ 
+
+ .icon {
+   font-size: 20px;
+   color: black;
+ }
