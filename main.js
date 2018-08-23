@@ -1,11 +1,11 @@
 
 $(document).ready(function() {
   
-  $.getJSON("http://ws.audioscrobbler.com/2.0/?method=chart.gettoptracks&api_key=f21088bf9097b49ad4e7f487abab981e&limit=100&format=json", function(json) {
+  $.getJSON("https://ws.audioscrobbler.com/2.0/?method=chart.gettoptracks&api_key=f21088bf9097b49ad4e7f487abab981e&limit=100&format=json", function(json) {
      
     $.each(json.tracks.track, function(i, item) { 
       
-      let trackRequest = $.getJSON(`http://ws.audioscrobbler.com/2.0/?method=track.getInfo&api_key=f21088bf9097b49ad4e7f487abab981e&artist=${item.artist.name}&track=${item.name}&format=json`, function(json) {
+      let trackRequest = $.getJSON(`https://ws.audioscrobbler.com/2.0/?method=track.getInfo&api_key=f21088bf9097b49ad4e7f487abab981e&artist=${item.artist.name}&track=${item.name}&format=json`, function(json) {
         $.each(json, function(i, item) {
           if (typeof item.toptags === "undefined" || item.toptags.tag.length == 0) {
             return songs ; 
