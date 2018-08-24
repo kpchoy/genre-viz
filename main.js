@@ -164,7 +164,7 @@ function simulate() {
   // simulation setup with all forces
   var simulation = d3
     .forceSimulation()
-    .force('charge', d3.forceManyBody().strength(-160))
+    .force('charge', d3.forceManyBody().strength(-130))
     .force('center', d3.forceCenter(width / 2, height / 2))
     .force('collision', d3.forceCollide().radius(function(d) {
       return d.size;

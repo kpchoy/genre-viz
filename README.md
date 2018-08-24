@@ -64,3 +64,7 @@ Fourth Day
 - [ ] style the page so that all the circles and nodes are asthetically pleasing 
 - [ ] style the page for any information needed or desired background 
 
+Bonus Features 
+
+- [ ] make the visualization 3D 
+- [ ] play the song if a user clicks on a song 
