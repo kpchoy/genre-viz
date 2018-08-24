@@ -1,4 +1,3 @@
-
 $(document).ready(function() {
   
   $.getJSON("https://ws.audioscrobbler.com/2.0/?method=chart.gettoptracks&api_key=f21088bf9097b49ad4e7f487abab981e&limit=100&format=json", function(json) {
@@ -7,6 +6,8 @@ $(document).ready(function() {
       
       let trackRequest = $.getJSON(`https://ws.audioscrobbler.com/2.0/?method=track.getInfo&api_key=f21088bf9097b49ad4e7f487abab981e&artist=${item.artist.name}&track=${item.name}&format=json`, function(json) {
         $.each(json, function(i, item) {
+          
+
           if (typeof item.toptags === "undefined" || item.toptags.tag.length == 0) {
             return songs ; 
             
@@ -38,7 +39,6 @@ $(document).ready(function() {
     
     Promise.all(trackRequestArr).then(() => {
       // all are resolved
-      
       simulate();
 
      });
@@ -105,7 +105,7 @@ function getNodeColor(node) {
 
 function circleSize(node) {
   if (node.level === 1) {
-    return 100;
+    return 80;
   } else {
     return 10;
   }
@@ -151,7 +151,6 @@ function simulate() {
   var nodes = initNodes.concat(popSongs,hhSongs, aSongs, rSongs);
       
   linkGenerator(nodes);
-
 
 
   svg.attr('width', width).attr('height', height);
@@ -209,7 +208,7 @@ function simulate() {
     .text(function (node) { return  node.label })
     .attr("font-size", fontSize)
     .attr("dx", textDx)
-    .attr("dy", 0)
+    .attr("dy", 5)
     .call(dragDrop);
 
   simulation.nodes(nodes).on('tick', () => {
