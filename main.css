@@ -51,4 +51,39 @@ text {
  .icon {
    font-size: 20px;
    color: black;
+   margin-left: 15px;
  }
+
+ .waves-effect {
+   color: black;
+   font-size: 20px;
+   background: none;
+   border-style: none;
+   border: 0;
+   box-shadow: none;
+ }
+
+ .waves-effect:hover {
+   background-color: #40d9ac;
+ }
+
+ .modal-content {
+  font-family: "Helvetica Neue", Helvetica;
+  font-weight: 200;
+  align-content: center;
+  text-align: center;
+  justify-content: center; 
+  margin-left: 15%;
+  margin-right: 15%;
+
+ }
+
+ .modal-title {
+   font-size: 36px;
+ }
+
+ .modal-description {
+   
+   font-size: 20px;
+ }
+

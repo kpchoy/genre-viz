@@ -7,10 +7,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 
-  <link rel="stylesheet" type="text/css" media="screen" href="main.css" />
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">
-
   
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-rc.2/css/materialize.min.css">
+  <link rel="stylesheet" type="text/css" media="screen" href="main.css" />
+
 </head>
 
 <style>
@@ -24,15 +25,43 @@
       <p class="description">click and drag a genre or song</p>
       <a class="icon" href="https://github.com/kpchoy/genre-viz"><i class="fab fa-github"></i></a>
       <a class="icon" href="https://www.linkedin.com/in/kevin-choy-b5714b133"><i class="fab fa-linkedin-in"></i></a>
+      <!-- Modal Trigger -->
+       <a class="waves-effect waves-light btn modal-trigger" href="#modal1"><i class="fas fa-info-circle"></i></a>
     </div>
 
   </div>
+
+  
+
+  <!-- Modal Structure -->
+  <div id="modal1" class="modal bottom-sheet">
+    <div class="modal-content">
+      <p class="modal-title">Welcome to GenreViz</p>
+      <p class="modal-description">GenreViz is a music data visualization project that implements force with D3js. GenreViz implements lastfm's API to fetch data for current top tracks sorted by their respective genre.
+          Users can click and drag various different genres, and the songs belonging to that genre.
+      </p>
+    </div>
+  </div>
+
 
   <script src="https://d3js.org/d3.v5.min.js"></script>
 
   <svg width="960" height="600"></svg>
   
   <script src="main.js"></script>
+  
+
+  <script>
+    $(document).ready(function () {
+       
+      $('.modal').modal();
+    });
+  </script>
+
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-rc.2/js/materialize.min.js"></script>
+
+
+
 </body>
 
 

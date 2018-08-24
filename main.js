@@ -210,6 +210,7 @@ function simulate() {
     .attr("dx", textDx)
     .attr("dy", 5)
     .call(dragDrop);
+    
 
   simulation.nodes(nodes).on('tick', () => {
       nodeElements
