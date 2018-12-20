@@ -105,7 +105,7 @@ function getNodeColor(node) {
 
 function circleSize(node) {
   if (node.level === 1) {
-    return 80;
+    return 100;
   } else {
     return 10;
   }
