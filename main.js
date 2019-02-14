@@ -79,23 +79,25 @@ var initNodes = [
 
 function getNodeColor(node) {
   if (node.level === 1 && node.label === "Pop") {
-    return 'red';
+    // return 'red';
+    return '#FF355E';
   } else if (node.group === 0) {
     return '#ff8080';
   } else if (node.level === 1 && node.label === "Country") {
-    return 'green';
+    // return 'green';
+    return '#66FF66';
   } else if (node.group === 1) {
     return '#99ff99';
   } else if (node.level === 1 && node.label === "Hip-hop") {
-    return 'purple';
+    return '#FF00CC';
   } else if (node.group === 2) {
     return '#d98cb3';
   } else if (node.level === 1 && node.label === "Rock") {
-    return 'blue';
+    return '#50BFE6';
   } else if (node.group === 3) {
     return '#66a3ff';
   } else if (node.level === 1 && node.label === "Electronic") {
-    return 'orange';
+    return '#FF9933';
   } else if (node.group === 4) {
     return '#ffd699';
   } else {
@@ -164,10 +166,10 @@ function simulate() {
   // simulation setup with all forces
   var simulation = d3
     .forceSimulation()
-    .force('charge', d3.forceManyBody().strength(-130))
+    .force('charge', d3.forceManyBody().strength(-200))
     .force('center', d3.forceCenter(width / 2, height / 2))
-    .force('collision', d3.forceCollide().radius(function(d) {
-      return d.size;
+    .force("collide", d3.forceCollide(function(d) {
+      return d.size + 20;
     }))
     .force('link', linkForce);
   
