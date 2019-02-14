@@ -12,12 +12,12 @@ body {
 }
 
 text {
-  font-family: "Helvetica Neue", Helvetica;
+  font-family: 'Staatliches', cursive;
   font-weight: 200;
 }
 
 .navbar {
-  font-family: "Helvetica Neue", Helvetica;
+  font-family: 'Staatliches', cursive;
   position: absolute;
 
   top: 0;
