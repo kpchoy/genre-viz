@@ -134,6 +134,7 @@ function fontSize(node) {
 }
 
 
+
 function textDx(node) {
   if (node.level === 1) {
     return -60;
@@ -197,6 +198,7 @@ function simulate() {
     .data(nodes)
     .enter().append("circle")
     .attr("r", circleSize)
+    .attr("cursor", "pointer")
     .call(dragDrop)
     .attr("fill", getNodeColor);
 
@@ -209,6 +211,7 @@ function simulate() {
     .attr("font-size", fontSize)
     .attr("dx", textDx)
     .attr("dy", 5)
+    .attr("cursor", "pointer")
     .call(dragDrop);
     
 
