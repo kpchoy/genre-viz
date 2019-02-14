@@ -51,12 +51,14 @@ text {
  .icon {
    font-size: 20px;
    color: black;
-   margin-left: 15px;
+   margin-left: 20px;
  }
 
  .waves-effect {
    color: black;
-   font-size: 20px;
+   margin-left:10%;
+   font-size: 60px;
+   padding: 0px 20px;
    background: none;
    border-style: none;
    border: 0;
@@ -65,6 +67,7 @@ text {
 
  .waves-effect:hover {
    background-color: #40d9ac;
+   border-radius: 25px;
  }
 
  .modal-content {
