@@ -63,10 +63,10 @@ var rCount = 0;
 let trackRequestArr = [];
 
 var links = [
-  { target: "p", source: "hh", strength: 0.06 },
-  { target: "hh", source: "r", strength: 0.06 },
-  { target: "a", source: "p", strength: 0.06 },
-  { target: "r", source: "a", strength: 0.06 },
+  { target: "p", source: "hh", strength: 0.08 },
+  { target: "hh", source: "r", strength: 0.08 },
+  { target: "a", source: "p", strength: 0.08 },
+  { target: "r", source: "a", strength: 0.08 },
 ];
 
 var initNodes = [
@@ -116,13 +116,13 @@ function circleSize(node) {
 function linkGenerator(nodez) {
   nodez.forEach(node => {
     if (node.id.includes("p")) { 
-      links.push({target: "p", source: node.id, strength: 0.15});
+      links.push({target: "p", source: node.id, strength: 0.16});
     } else if (node.id.includes("hh")) {
-      links.push({target: "hh", source: node.id, strength: 0.15});
+      links.push({target: "hh", source: node.id, strength: 0.16});
     } else if (node.id.includes("r")) {
-      links.push({target: "r", source: node.id, strength: 0.15});
+      links.push({target: "r", source: node.id, strength: 0.16});
     } else if (node.id.includes("a")) {
-      links.push({target: "a", source: node.id, strength: 0.15});
+      links.push({target: "a", source: node.id, strength: 0.16});
     }
   });
 }
@@ -166,10 +166,10 @@ function simulate() {
   // simulation setup with all forces
   var simulation = d3
     .forceSimulation()
-    .force('charge', d3.forceManyBody().strength(-200))
+    .force('charge', d3.forceManyBody().strength(-100))
     .force('center', d3.forceCenter(width / 2, height / 2))
     .force("collide", d3.forceCollide(function(d) {
-      return d.size + 20;
+      return d.size + 120;
     }))
     .force('link', linkForce);
   
@@ -192,6 +192,8 @@ function simulate() {
       .selectAll('line')
       .data(links)
       .enter().append('line')
+      .attr("cursor", "pointer")
+      .call(dragDrop)
 
   
   var nodeElements = svg.append("g")
