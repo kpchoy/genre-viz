@@ -7,24 +7,24 @@ $(document).ready(function() {
       let trackRequest = $.getJSON(`https://ws.audioscrobbler.com/2.0/?method=track.getInfo&api_key=f21088bf9097b49ad4e7f487abab981e&artist=${item.artist.name}&track=${item.name}&format=json`, function(json) {
         $.each(json, function(i, item) {
           
-
           if (typeof item.toptags === "undefined" || item.toptags.tag.length == 0) {
             return songs ; 
             
           } else if (item.toptags.tag[0].name.toLowerCase() === "pop") {
-            popSongs.push({cluster: 0, label: `${item.name}`});
+            popSongs.push({cluster: 0, label: `${item.name}`, artist: getArtist(item), img: getImg(item)});
 
             
           } else if (item.toptags.tag[0].name.toLowerCase().includes("hip") || item.toptags.tag[0].name.toLowerCase().includes("rap")) {
-            hhSongs.push({cluster: 1, label: `${item.name}`});
+          
+            hhSongs.push({cluster: 1, label: `${item.name}`, artist: getArtist(item), img: getImg(item)});
 
             
           } else if (item.toptags.tag[0].name.toLowerCase().includes("alt")) {
-            aSongs.push({cluster: 2, label: `${item.name}`});
+            aSongs.push({cluster: 2, label: `${item.name}`, artist: getArtist(item), img: getImg(item)});
 
             
           } else if (item.toptags.tag[0].name.toLowerCase().includes("rock")) {
-            rSongs.push({cluster: 3, label: `${item.name}`});
+            rSongs.push({cluster: 3, label: `${item.name}`, artist: getArtist(item), img: getImg(item)});
 
             
           } else {
@@ -38,20 +38,18 @@ $(document).ready(function() {
     
     Promise.all(trackRequestArr).then(() => {
       let allSongs = popSongs.concat(hhSongs, aSongs, rSongs);
-    
       var width = 960,
-    height = 500,
-    padding = 1.5, // separation between same-color nodes
-    clusterPadding = 6, // separation between different-color nodes
-    maxRadius = 2;
+          height = 500,
+          padding = 1.5, 
+          clusterPadding = 6, 
+          maxRadius = 2;
 
-        var n = allSongs.length, // total number of nodes
-            m = 20; // number of distinct clusters
+        var n = allSongs.length, 
+            m = 20;
 
         var color = d3.scale.category10()
             .domain(d3.range(m));
 
-        // The largest node for each cluster.
         var clusters = new Array(m);
 
         var idx = 0;
@@ -66,6 +64,8 @@ $(document).ready(function() {
                 x: Math.cos(i / m * 2 * Math.PI) * 200 + width / 2 + Math.random(),
                 y: Math.sin(i / m * 2 * Math.PI) * 200 + height / 2 + Math.random(),
                 text: allSongs[idx].label,
+                artist: allSongs[idx].artist,
+                img: allSongs[idx].img, 
               };
           if (!clusters[songClusterId] || (r > clusters[songClusterId].radius)) clusters[songClusterId] = d;
           idx++;
@@ -88,23 +88,15 @@ $(document).ready(function() {
             .data(nodes)
             .enter().append("circle")
             .style("fill", function(d) { return color(d.cluster); })
-            .call(force.drag);
-
+            .on("mouseover", handleMouseOver)
+            .call(force.drag)
+      
         node.transition()
             .duration(750)
             .delay(function(d, i) { return i * 5; })
             .attrTween("r", function(d) {
               var i = d3.interpolate(0, d.radius);
               return function(t) { return d.radius = i(t); };
-            });
-
-            node.append("text")
-            // .attr("dy", ".3em")
-            // .style("text-anchor", "middle")
-            .attr("font-size", 100)
-            .text(function(d) { 
-              // debugger;
-              return d.text; 
             });
 
         function tick(e) {
@@ -134,7 +126,6 @@ $(document).ready(function() {
           };
         }
 
-        // Resolves collisions between d and all other circles.
         function collide(alpha) {
           var quadtree = d3.geom.quadtree(nodes);
           return function(d) {
@@ -162,7 +153,7 @@ $(document).ready(function() {
           };
         }
 
-
+    
 
 
         
@@ -184,6 +175,26 @@ var rSongs = [];
 
 let trackRequestArr = [];
 
+
+function handleMouseOver(d, i) {  // Add interactivity
+  // Use D3 to select element, change color and size
+  // debugger;
+  $('#song-info').text(`${d.text}`);
+  $('#song-artist').text(`${d.artist}`);
+  
+  $("#song-img").attr("src",`${d.img}`);
+}
+
+
+function getArtist(item) {
+  // debugger;
+  return typeof item.artist !== 'undefined' ? `${item.artist.name}` : "no info at this time";
+}
+
+function getImg(item) {
+  // debugger; 
+  return typeof item.album !== 'undefined' ? `${Object.values(item.album.image[3])[0]}` : "https://www.free-stock-music.com/thumbnails/free-music-thumbnail.jpg";
+}
 
 
 
