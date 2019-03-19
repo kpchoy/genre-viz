@@ -28,7 +28,7 @@ $(document).ready(function() {
 
             
           } else {
-            popSongs.push({cluster: 0, label: `${item.name}`});
+            popSongs.push({cluster: 0, label: `${item.name}`, artist: getArtist(item), img: getImg(item)});
           }
         });
         
@@ -188,7 +188,12 @@ function handleMouseOver(d, i) {  // Add interactivity
 
 function getArtist(item) {
   // debugger;
-  return typeof item.artist !== 'undefined' ? `${item.artist.name}` : "no info at this time";
+  if (typeof item.artist !== 'undefined') {
+    return `${item.artist.name}`
+  } else { 
+    return "no info at this time";
+
+  }
 }
 
 function getImg(item) {
