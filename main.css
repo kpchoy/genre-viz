@@ -4,13 +4,14 @@ body {
   margin: 0;
   padding: 0;
   position: relative;
-  background: url(texture-noise.png);
-
+  /* background: url(texture-noise.png); */
+  background: #14171A;
 }
 
 text {
   font-family: 'Staatliches', cursive;
   font-weight: 200;
+  color: #1DA1F2;
 }
 
 .main {
@@ -19,6 +20,8 @@ text {
   width: 100vw;
   align-items: center;
   justify-content: space-around;
+  color: #1DA1F2;
+
 }
 
 .navbar {
@@ -33,11 +36,12 @@ text {
   padding-left: 10%;
 }
  .title {
-  color: black;
-  font-size: 40px;
+  /* color: black; */
+  color: #1DA1F2;
+  font-size: 50px;
   font-weight: 200;
   margin-bottom: 0;
-  text-shadow: 1px 1px 1px rgba(0,0,0,0.3);
+  text-shadow: 1px 1px 1px #1DA1F2;
  }
 
  .description {
@@ -45,21 +49,21 @@ text {
    font-weight: 200;
    margin-top: 0;
    margin-bottom: 10px;
-   border-bottom: solid 1px #ebebeb; 
+   border-bottom: solid 1px #657786; 
    width: 200px;
-   color: #999;
+   color: #AAB8C2;
 
  }
  
 
  .icon {
    font-size: 20px;
-   color: black;
+   /* color: black; */
    margin-left: 20px;
  }
 
  .waves-effect {
-   color: black;
+   /* color: black; */
    margin-left:10%;
    font-size: 60px;
    padding: 0px 20px;
@@ -70,7 +74,7 @@ text {
  }
 
  .waves-effect:hover {
-   background-color: #40d9ac;
+   background-color: #657786;
    border-radius: 25px;
  }
 
@@ -96,16 +100,21 @@ text {
 
  .song-info {
   margin-left: 10%;
-  margin-top: 20%;
+  margin-top: 5%;
   width: 400px; 
  }
 
  #song-img {
    width: 300px;
    height: 300px;
+   border: solid 3px #1DA1F2; 
+   box-shadow: 0 6px 8px #1DA1F2;
  }
  .svg {
    height: 90vh;
    width: 900px;
    /* background: green; */
+   border: solid 3px #1DA1F2; 
+   box-shadow: 0 6px 8px #1DA1F2;
+
  }

@@ -11,24 +11,24 @@ $(document).ready(function() {
             return songs ; 
             
           } else if (item.toptags.tag[0].name.toLowerCase() === "pop") {
-            popSongs.push({cluster: 0, label: `${item.name}`, artist: getArtist(item), img: getImg(item)});
+            popSongs.push({cluster: 0, label: `${item.name}`, artist: getArtist(item), img: getImg(item), genre: "Pop"} );
 
             
           } else if (item.toptags.tag[0].name.toLowerCase().includes("hip") || item.toptags.tag[0].name.toLowerCase().includes("rap")) {
           
-            hhSongs.push({cluster: 1, label: `${item.name}`, artist: getArtist(item), img: getImg(item)});
+            hhSongs.push({cluster: 1, label: `${item.name}`, artist: getArtist(item), img: getImg(item), genre: "Hip-Hop"});
 
             
           } else if (item.toptags.tag[0].name.toLowerCase().includes("alt")) {
-            aSongs.push({cluster: 2, label: `${item.name}`, artist: getArtist(item), img: getImg(item)});
+            aSongs.push({cluster: 2, label: `${item.name}`, artist: getArtist(item), img: getImg(item), genre: "Alternative"});
 
             
           } else if (item.toptags.tag[0].name.toLowerCase().includes("rock")) {
-            rSongs.push({cluster: 3, label: `${item.name}`, artist: getArtist(item), img: getImg(item)});
+            rSongs.push({cluster: 3, label: `${item.name}`, artist: getArtist(item), img: getImg(item), genre: "Rock"});
 
             
           } else {
-            popSongs.push({cluster: 0, label: `${item.name}`, artist: getArtist(item), img: getImg(item)});
+            popSongs.push({cluster: 0, label: `${item.name}`, artist: getArtist(item), img: getImg(item), genre: "Pop"});
           }
         });
         
@@ -66,6 +66,7 @@ $(document).ready(function() {
                 text: allSongs[idx].label,
                 artist: allSongs[idx].artist,
                 img: allSongs[idx].img, 
+                genre: allSongs[idx].genre,
               };
           if (!clusters[songClusterId] || (r > clusters[songClusterId].radius)) clusters[songClusterId] = d;
           idx++;
@@ -181,6 +182,7 @@ function handleMouseOver(d, i) {  // Add interactivity
   // debugger;
   $('#song-info').text(`${d.text}`);
   $('#song-artist').text(`${d.artist}`);
+  $('#song-genre').text(`${d.genre}`);
   
   $("#song-img").attr("src",`${d.img}`);
 }
