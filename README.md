@@ -4,6 +4,8 @@
 
 https://kpchoy.github.io/genre-viz/
 
+![current-state](current-state.png)
+
 ### Background and Overview
 
 GenreViz is a music data visualization project that implements force with D3js. GenreViz implements lastfm's API to fetch data for current top tracks sorted by their respective genre.
