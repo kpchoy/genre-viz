@@ -1,7 +1,4 @@
-line {
-  stroke-width: 2;
-  stroke: #E5E5E5;
-}
+
 
 body {
   margin: 0;
@@ -16,12 +13,19 @@ text {
   font-weight: 200;
 }
 
+.main {
+  display: flex; 
+  height: 100vh;
+  width: 100vw;
+  align-items: center;
+  justify-content: space-around;
+}
+
 .navbar {
   font-family: 'Staatliches', cursive;
-  position: absolute;
-
-  top: 0;
-  width: 100%;
+  height: 100vh;
+  /* background: blue;  */
+  width: 450px;
 }
 
 .left-nav{
@@ -86,10 +90,22 @@ text {
  }
 
  .modal-description {
-   
    font-size: 20px;
  }
 
-.texts {
-  color: orange;
-}
+
+ .song-info {
+  margin-left: 10%;
+  margin-top: 20%;
+  width: 400px; 
+ }
+
+ #song-img {
+   width: 300px;
+   height: 300px;
+ }
+ .svg {
+   height: 90vh;
+   width: 900px;
+   /* background: green; */
+ }

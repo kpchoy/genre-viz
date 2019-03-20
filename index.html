@@ -21,23 +21,33 @@
 </style>
 
 <body>
-  <div class="navbar">
-    <div class="left-nav">
-      <p class="title">GenreViz</p>
-      <p class="description">click and drag a genre or song</p>
-      <a class="icon" href="https://github.com/kpchoy/genre-viz"><i class="fab fa-github"></i></a>
-      <a class="icon" href="https://www.linkedin.com/in/kevin-choy-b5714b133"><i class="fab fa-linkedin-in"></i></a>
-      <!-- Modal Trigger -->
-    </div>
-    <a class="waves-effect waves-light modal-trigger" href="#modal1"><i class="fas fa-info-circle"></i></a>
-    
-    <div >
-      Song: <span id="song-info"></span>
-      Artist: <span id="song-artist"></span>
-      <img id="song-img" src="https://www.free-stock-music.com/thumbnails/free-music-thumbnail.jpg" alt="Song Image">
+  <div class="main">
+    <div class="navbar">
+      <div class="left-nav">
+        <p class="title">GenreViz</p>
+        <p class="description">click and drag a genre or song</p>
+        <a class="icon" href="https://github.com/kpchoy/genre-viz"><i class="fab fa-github"></i></a>
+        <a class="icon" href="https://www.linkedin.com/in/kevin-choy-b5714b133"><i class="fab fa-linkedin-in"></i></a>
+        <!-- Modal Trigger -->
+      </div>
+      <a class="waves-effect waves-light modal-trigger" href="#modal1"><i class="fas fa-info-circle"></i></a>
       
+      <div class="song-info">
+        <h5>Song: <span id="song-info"></span></h5>
+        <h5>Artist: <span id="song-artist"></span></h5>
+        <img id="song-img" src="https://www.free-stock-music.com/thumbnails/free-music-thumbnail.jpg" alt="Song Image">
+        
+      </div>
     </div>
+   
+    <svg class="svg"></svg>
+  
+    
+    
   </div>
+  
+  
+  
   <!-- Modal Structure -->
   <div id="modal1" class="modal bottom-sheet">
     <div class="modal-content">
@@ -51,25 +61,19 @@
   
 
 
-  <!-- <script src="https://d3js.org/d3.v5.min.js"></script> -->
-  <script src="https://d3js.org/d3.v3.min.js"></script>
-
-
-  <svg width="960" height="600"></svg>
-
-  <script>
-    $(document).ready(function () {
-       
-      $('.modal').modal();
-    });
-  </script>
-
+    <!-- <script src="https://d3js.org/d3.v5.min.js"></script> -->
+    <script src="https://d3js.org/d3.v3.min.js"></script>
+      
+    <script>
+        $(document).ready(function () {
+          $('.modal').modal();
+        });
+    </script>
+  
   <!-- <script src="main.js"></script> -->
-  <script src="bubble.js"></script>
-
-  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-rc.2/js/materialize.min.js"></script>
-
-
+    <script src="bubble.js"></script>
+    
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-rc.2/js/materialize.min.js"></script>    
 
 </body>
 

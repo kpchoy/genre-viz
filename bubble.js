@@ -39,7 +39,7 @@ $(document).ready(function() {
     Promise.all(trackRequestArr).then(() => {
       let allSongs = popSongs.concat(hhSongs, aSongs, rSongs);
       var width = 960,
-          height = 500,
+          height =  window.innerHeight,
           padding = 1.5, 
           clusterPadding = 6, 
           maxRadius = 2;
@@ -80,7 +80,7 @@ $(document).ready(function() {
             .on("tick", tick)
             .start();
 
-        var svg = d3.select("body").append("svg")
+        var svg = d3.select("svg").append("svg")
             .attr("width", width)
             .attr("height", height);
 
