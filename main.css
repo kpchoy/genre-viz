@@ -41,7 +41,7 @@ text {
   font-size: 50px;
   font-weight: 200;
   margin-bottom: 0;
-  text-shadow: 1px 1px 1px #1DA1F2;
+  /* text-shadow: 1px 1px 1px #1DA1F2; */
  }
 
  .description {
